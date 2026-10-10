@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dunder-calc"
+dynamic = ["version"]
+description = "Calculadora de escritorio con tkinter y temática de The Office (Dunder Mifflin)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "programariodev" }]
+requires-python = ">=3.10"
+dependencies = []
+keywords = ["calculator", "tkinter", "gui", "the-office", "easter-eggs"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: X11 Applications",
+    "Intended Audience :: End Users/Desktop",
+    "Natural Language :: Spanish",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/programariodev/dunder-calc"
+Issues = "https://github.com/programariodev/dunder-calc/issues"
+Changelog = "https://github.com/programariodev/dunder-calc/blob/main/CHANGELOG.md"
+
+[project.gui-scripts]
+dunder-calc = "dunder_calc.__main__:main"
+
+[dependency-groups]
+dev = ["mypy>=1.13", "pre-commit>=4", "pytest>=8", "pytest-cov>=6", "ruff>=0.8"]
+
+[tool.setuptools.dynamic]
+version = { attr = "dunder_calc.__version__" }
+
+[tool.setuptools.package-data]
+dunder_calc = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "BLE", "UP", "SIM", "RUF", "ANN"]
+# Los símbolos − × ÷ son intencionales en la interfaz.
+ignore = ["RUF001", "RUF002", "RUF003", "ANN401"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ANN"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = ["-ra", "--strict-markers"]
+
+[tool.coverage.run]
+source = ["dunder_calc"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+# La interfaz se verifica manualmente; la cobertura mide la lógica pura.
+omit = ["*/ui/*", "*/__main__.py", "*/messages.py"]

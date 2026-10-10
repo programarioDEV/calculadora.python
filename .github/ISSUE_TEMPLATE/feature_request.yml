@@ -1,0 +1,11 @@
+name: Proponer una mejora
+description: Una idea nueva (¿otro easter egg?)
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Idea
+      description: Qué te gustaría añadir y por qué.
+    validations:
+      required: true
